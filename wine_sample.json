@@ -1,0 +1,59 @@
+{
+  // General information about the chemical analysis
+  "certificate_date": "2022-10-04",
+  "sample_manifested": "Vino Varietal Tinto-Malbec-Verdot-Cabernet Sauvignon-2018",
+  "sample_number": "60-967478-2022",
+  "presented_on": "2022-10-04",
+  "batch_volume_liters": 4988.00,
+  "container_type": "Not specified",
+  
+  // Ownership and location details - The code is the INV winery and username
+  "owner": {
+    "name": "CUCHILLAS DE LUNLUNTA S.A.",
+    "code": "B73260"
+  },
+  "address": "MAZA S/N Mendoza - Maipú - Russell",
+
+  // Physical and chemical parameters of the sample
+  "parameters": {
+    "density_20C_g_per_ml": 0.9920,  // Density at 20°C in g/ml
+    "alcohol_percent_vol_20C": 14.7, // Alcohol percentage at 20°C
+    "dry_extract_g_per_l": 32.6,     // Dry extract in g/l
+    "reducing_sugars_g_per_l": 3.65, // Reducing sugars in g/l
+    "total_acidity_tartaric_g_per_l": 4.74, // Total acidity in tartaric acid (g/l)
+    "volatile_acidity_acetic_g_per_l": 0.75, // Volatile acidity in acetic acid (g/l)
+    "sulfates_SO4K2_g_per_l": "<1.00",      // Sulfates as SO4K2 in g/l
+    "sorbic_acid_mg_per_l": "Not detected", // Sorbic acid in mg/l
+    "methanol_ml_per_l": "<0.51",           // Methanol in ml/l
+    "total_sulfur_dioxide_mg_per_l": 75,    // Total sulfur dioxide in mg/l
+    "polarimetric_deviation": "Not detected", // Polarimetric deviation
+    "microscopic_observation": "Not detected" // Microscopic observation
+  },
+
+  // Sensory evaluation of the sample
+  "sensory_attributes": {
+    "flavor": "Vinoso",  // Flavor characteristic
+    "aroma": "Normal",   // Aroma characteristic
+    "appearance": "Limpid", // Appearance description
+    "color": "Tinto"     // Color of the wine
+  },
+
+  // Trace amounts of metals in the sample
+  "metals_content_mg_per_l": {
+    "copper": "<1.00",   // Copper content in mg/l
+    "lead": "<0.10",     // Lead content in mg/l
+    "cadmium": "<0.01",  // Cadmium content in mg/l
+    "arsenic": "<0.20",  // Arsenic content in mg/l
+    "zinc": "<5.00"      // Zinc content in mg/l
+  },
+
+  // Additional observations and ownership information
+  "observations": "Analysis M-1741170 (142 Lts), M-1830008 (4846 Lts). Property of Organic Costaflores Sociedad Anonima. CUIT: 30-71099828-7",
+
+  // Classification of the product
+  "classification": [
+    "Libre Circulación", // Free circulation
+    "Vino Genuino",      // Genuine wine
+    "Apto para el Consumo" // Suitable for consumption
+  ]
+}
