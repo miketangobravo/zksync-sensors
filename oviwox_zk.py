@@ -4,8 +4,17 @@ import serial
 import threading
 import logging
 from web3 import Web3
+from dotenv import load_dotenv
 import os
 
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch private key
+PRIVATE_KEY = os.getenv("ZKSYNC_PRIVATE_KEY")
+if not PRIVATE_KEY:
+    raise ValueError("ZKSYNC_PRIVATE_KEY is not set")
 
 # Set up logging to file
 LOG_FILE = "/var/log/oviwox.log"
@@ -16,9 +25,8 @@ logging.basicConfig(
 )
 
 # zkSync configuration
-ZKSYNC_RPC_URL = "https://zksync2-testnet.zksync.dev"  # zkSync testnet
+ZKSYNC_RPC_URL = "https://sepolia.era.zksync.dev"  # zkSync testnet
 CONTRACT_ADDRESS = "0x2B2CdB657138cB3F5381D8C482e72B2657A1256B"  # Replace with deployed contract address
-PRIVATE_KEY = os.getenv("ZKSYNC_PRIVATE_KEY")
 
 # Contract ABI
 CONTRACT_ABI = [
@@ -35,14 +43,14 @@ CONTRACT_ABI = [
 web3 = Web3(Web3.HTTPProvider(ZKSYNC_RPC_URL))
 account = web3.eth.account.from_key(PRIVATE_KEY)
 contract = web3.eth.contract(address=CONTRACT_ADDRESS, abi=CONTRACT_ABI)
-logging.info(f"Connected to zkSync: {web3.isConnected()}")
+logging.info(f"Connected to zkSync: {web3.is_connected()}")
 
 def write_to_zksync(data):
     """Writes data to zkSync smart contract."""
     try:
-        nonce = web3.eth.getTransactionCount(account.address)
-        transaction = contract.functions.storeData(json.dumps(data)).buildTransaction({
-            'chainId': web3.eth.chain_id,
+        nonce = web3.eth.get_transaction_count(account.address)
+        transaction = contract.functions.storeData(json.dumps(data)).build_transaction({ 
+            'chainId': 300,  # zkSync Sepolia chain ID
             'gas': 200000,
             'gasPrice': web3.eth.gas_price,
             'nonce': nonce
