@@ -30,13 +30,203 @@ CONTRACT_ADDRESS = "0xFF85860546D0244B76632D009fc17aF5202c24a1"  # Replace with 
 
 # Contract ABI
 CONTRACT_ABI = [
-    {
-        "inputs": [{"internalType": "string", "name": "data", "type": "string"}],
-        "name": "storeData",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function",
-    }
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "data",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "updater",
+				"type": "address"
+			}
+		],
+		"name": "DataStored",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "updater",
+				"type": "address"
+			}
+		],
+		"name": "UpdaterAuthorized",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "updater",
+				"type": "address"
+			}
+		],
+		"name": "UpdaterRevoked",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "updater",
+				"type": "address"
+			}
+		],
+		"name": "authorizeUpdater",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "authorizedUpdaters",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllData",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getData",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getTimestamp",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "updater",
+				"type": "address"
+			}
+		],
+		"name": "revokeUpdater",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "data",
+				"type": "string"
+			}
+		],
+		"name": "storeData",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
 ]
 
 # Initialize Web3 connection
@@ -47,12 +237,11 @@ logging.info(f"Connected to zkSync: {web3.is_connected()}")
 
 def write_to_zksync(data):
     """Writes data to zkSync smart contract."""
-    print(data)
     try:
         nonce = web3.eth.get_transaction_count(account.address)
         transaction = contract.functions.storeData(json.dumps(data)).build_transaction({ 
             'chainId': 300,  # zkSync Sepolia chain ID
-            'gas': 2000000,
+            'gas': 200000,
             'gasPrice': web3.eth.gas_price,
             'nonce': nonce
         })
@@ -147,14 +336,14 @@ def vinduino_relay():
                 logging.error(f"An unexpected error occurred while processing Vinduino data: {e}")
 
 # Create threads for each function
-weather_thread = threading.Thread(target=weather_station_relay)
+# weather_thread = threading.Thread(target=weather_station_relay)
 vinduino_thread = threading.Thread(target=vinduino_relay)
 
 # Start the threads
-weather_thread.start()
+#weather_thread.start()
 vinduino_thread.start()
 
 # Join the threads to keep the program running
-weather_thread.join()
+#weather_thread.join()
 vinduino_thread.join()
 
